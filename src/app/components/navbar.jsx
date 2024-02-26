@@ -25,10 +25,16 @@ const NavBar = () => {
     closed: { rotate: 0 },
     opened: { rotate: -45, backgroundColor: "rgb(255,255,255)" },
   };
-
   const listVariant = {
-    closed: {x:"100vw"},
-    opened: {x:"0"}
+    closed: { x: "100vw" },
+    opened: {
+      x: "0",
+      transition: { when: "beforeChildren", staggerChildren: 0.2 },
+    },
+  };
+  const listitemVariants = {
+    closed: { x: -10, opacity: 0 },
+    opened: { x: 0, opacity: 1 },
   };
   return (
     <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-28 xl:px-48 text-xl">
@@ -84,26 +90,38 @@ const NavBar = () => {
         >
           {/* <button className="w-10 h-8 flex flex-col justify-between z-50 relative" onClick={() => setOpen(!open)}> */}
           <motion.div
-            animate = {open ? "opened" : "closed"}variants={topVariants}
+            animate={open ? "opened" : "closed"}
+            variants={topVariants}
             className="w-10 h-1 bg-white rounded origin-left"
-            ></motion.div>
+          ></motion.div>
           <motion.div
-            animate = {open ? "opened" : "closed"}variants={centerVariants}
+            animate={open ? "opened" : "closed"}
+            variants={centerVariants}
             className="w-10 h-1 bg-white rounded"
           ></motion.div>
           <motion.div
-            animate = {open ? "opened" : "closed"}variants={bottomVariants}
+            animate={open ? "opened" : "closed"}
+            variants={bottomVariants}
             className="w-10 h-1 bg-white rounded origin-left"
           ></motion.div>
         </button>
       </div>
       {/* MENU LIST */}
       {open && (
-        <motion.div initial="closed" animate="opened" variants={listVariant} className="absolute top-0 left-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl z-40">
+        <motion.div
+          initial="closed"
+          animate="opened"
+          variants={listVariant}
+          className="absolute top-0 left-0 w-screen h-screen bg-black text-white flex flex-col items-center justify-center gap-8 text-4xl z-40"
+        >
           {links.map((link) => (
-            <Link href={link.url} key={link.title}>
-              {link.title}
-            </Link>
+            <motion.div
+              variants={listitemVariants}
+              className=""
+              key={link.title}
+            >
+              <Link href={link.url}>{link.title}</Link>
+            </motion.div>
           ))}
         </motion.div>
       )}
