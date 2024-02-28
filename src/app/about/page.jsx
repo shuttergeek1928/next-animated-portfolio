@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const AboutPage = () => {
   const skillsClassList =
     "rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black";
@@ -90,7 +88,7 @@ const AboutPage = () => {
             {/* <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black"> */}
             <div className="flex gap-4 flex-wrap">
               {skills.map((skill) => (
-                <div className={skillsClassList}>{skill}</div>
+                <div key={skill} className={skillsClassList}>{skill}</div>
               ))}
             </div>
 
